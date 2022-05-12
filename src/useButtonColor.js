@@ -1,19 +1,11 @@
 import { useState } from 'react';
 
 export const useButtonColor = () => {
-  const [buttonColor, setButtonColor] = useState('red');
-  const onClickColorChangeBtn = () => {
-    setButtonColor(x => ('red' ? 'blue' : 'red'));
-  };
-
-  const buttonStyle = () => ({ backgroundColor: buttonColor });
-  const buttonText = () =>
-    buttonColor === 'red' ? 'Change to blue' : 'Change to red';
+  const [buttonColor, setButtonColor] = useState(false);
 
   return {
-    state: [buttonColor, setButtonColor],
-    onClickColorChangeBtn,
-    buttonStyle,
-    buttonText
+    onClick: () => setButtonColor(x => !x),
+    style: () => ({ backgroundColor: buttonColor ? 'blue' : 'red' }),
+    text: () => (buttonColor ? 'Change to red' : 'Change to blue')
   };
 };

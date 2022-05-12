@@ -1,12 +1,15 @@
 import { useButtonColor } from './useButtonColor';
 
 const ColorButton = () => {
-  const { onClickColorChangeBtn, buttonStyle, buttonText } = useButtonColor();
+  const { onClick, style, text } = useButtonColor();
 
   return (
-    <button style={buttonStyle()} onClick={onClickColorChangeBtn}>
-      {buttonText()}
-    </button>
+    <>
+      <button style={style()} onClick={onClick}>
+        {text()}
+      </button>
+      <input type='checkbox' />
+    </>
   );
 };
 
