@@ -1,14 +1,28 @@
 import { useButtonColor } from './useButtonColor';
+import { useCheckBox } from './useCheckBox';
 
 const ColorButton = () => {
-  const { onClick, style, text } = useButtonColor();
+  const { onClick: onClickChangeColorButton, style, text } = useButtonColor();
+  const {
+    state: [isChecked],
+    onClick: onClickCheckbox
+  } = useCheckBox();
 
   return (
     <>
-      <button style={style()} onClick={onClick}>
+      <button
+        style={{ color: 'white', ...style() }}
+        onClick={onClickChangeColorButton}
+        disabled={isChecked}
+      >
         {text()}
       </button>
-      <input type='checkbox' />
+      <input
+        type='checkbox'
+        defaultChecked={isChecked}
+        aria-checked={isChecked}
+        onChange={e => onClickCheckbox(e.target.checked)}
+      />
     </>
   );
 };

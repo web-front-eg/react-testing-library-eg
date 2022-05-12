@@ -10,7 +10,7 @@ test('button has correct initial color?', () => {
   expect(changeColorBtn).toHaveStyle({ backgroundColor: 'red' });
 });
 
-test('button turns into blue when clicked', () => {
+test('button turns into blue when clicked?', () => {
   render(<ColorButton />);
 
   const changeColorBtn = screen.getByRole('button', { name: 'Change to blue' });
@@ -23,7 +23,7 @@ test('button turns into blue when clicked', () => {
   expect(changeColorBtn.textContent).toBe('Change to red');
 });
 
-test('initial conditions', () => {
+test('checkbox is unchecked at first?', () => {
   render(<ColorButton />);
 
   const changeColorBtn = screen.getByRole('button', { name: 'Change to blue' });
@@ -31,4 +31,29 @@ test('initial conditions', () => {
 
   const checkBox = screen.getByRole('checkbox');
   expect(checkBox).not.toBeChecked();
+});
+
+test('when checkbox is checked, button should be disabled', () => {
+  render(<ColorButton />);
+
+  const changeColorBtn = screen.getByRole('button', { name: 'Change to blue' });
+  expect(changeColorBtn).toBeEnabled();
+
+  const checkBox = screen.getByRole('checkbox');
+  expect(checkBox).not.toBeChecked();
+
+  fireEvent.click(checkBox);
+
+  expect(checkBox).toBeChecked();
+  expect(changeColorBtn).toBeDisabled();
+
+  fireEvent.click(checkBox);
+
+  expect(checkBox).not.toBeChecked();
+  expect(changeColorBtn).toBeEnabled();
+
+  fireEvent.click(checkBox);
+
+  expect(checkBox).toBeChecked();
+  expect(changeColorBtn).toBeDisabled();
 });
