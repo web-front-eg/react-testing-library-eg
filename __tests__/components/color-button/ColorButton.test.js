@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import ColorButton from './ColorButton';
+import ColorButton from '../../../src/components/color-button/ColorButton';
 
 test('button has correct initial color?', () => {
   render(<ColorButton />);
