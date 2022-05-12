@@ -1,28 +1,44 @@
-import { useButtonColor } from './useButtonColor';
-import { useCheckBox } from './useCheckBox';
+import { useState } from 'react';
+
+export const replaceCamelWithSpaces = colorName => {
+  return colorName.replace(/\B([A-Z])\B/g, ' $1');
+};
 
 const ColorButton = () => {
-  const { onClick: onClickChangeColorButton, style, text } = useButtonColor();
-  const {
-    state: [isChecked],
-    onClick: onClickCheckbox
-  } = useCheckBox();
+  const [isChecked, setChecked] = useState(false);
+  const [buttonColor, setButtonColor] = useState(false);
+
+  const onClickCheckbox = isChecked => setChecked(isChecked);
+  const onClickChangeColorButton = () => setButtonColor(x => !x);
+
+  const changeColorBtnStyle = () => {
+    if (isChecked) {
+      return { backgroundColor: 'gray' };
+    }
+
+    return { backgroundColor: buttonColor ? 'blue' : 'red' };
+  };
+
+  const changeColorBtnText = () =>
+    buttonColor ? 'Change to red' : 'Change to blue';
 
   return (
     <>
       <button
-        style={{ color: 'white', ...style() }}
+        style={{ color: 'white', ...changeColorBtnStyle() }}
         onClick={onClickChangeColorButton}
         disabled={isChecked}
       >
-        {text()}
+        {changeColorBtnText()}
       </button>
       <input
         type='checkbox'
+        id='disable-button-checkbox'
         defaultChecked={isChecked}
         aria-checked={isChecked}
         onChange={e => onClickCheckbox(e.target.checked)}
       />
+      <label htmlFor='disable-button-checkbox'>Disable button</label>
     </>
   );
 };

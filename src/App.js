@@ -1,4 +1,4 @@
-import ColorButton from './ColorButton';
+import ColorButton from './components/color-button/ColorButton';
 
 const App = () => (
   <div>
